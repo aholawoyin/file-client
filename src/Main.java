@@ -37,12 +37,18 @@ public class Main {
                     output.println(command);
                     output.println(file.length());
 
-                    try (FileInputStream fis = new FileInputStream(file)) {
+                      /*  try (FileInputStream fis = new FileInputStream(file)) {
                         byte[] buffer = new byte[4096];
                         int bytesRead;
                         while ((bytesRead = fis.read(buffer)) != -1) {
                             dataOut.write(buffer, 0, bytesRead);
-                        }
+                        }*/
+
+                    try (FileInputStream fis = new FileInputStream(file)) {
+                        byte[] buffer = new byte[fis.available()];
+                        fis.read(buffer);
+
+                        dataOut.write(buffer);
                         dataOut.flush();
                     }
 
